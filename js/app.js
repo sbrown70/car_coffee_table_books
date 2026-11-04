@@ -54,6 +54,7 @@ function renderSpread() {
   loadImages(book);
   fitText(book);
   preload((spread + 1) * 2);
+  $("contents").disabled = [pages[spread * 2], pages[spread * 2 + 1]].some((p) => p?.cls === "page-title");
   $("prev").disabled = spread === 0;
   $("next").disabled = (spread + 1) * 2 >= pages.length;
   $("position").textContent = `Pages ${spread * 2 + 1}–${spread * 2 + 2} of ${pages.length}`;
@@ -67,6 +68,7 @@ function renderPhone() {
     for (const e of entries) if (e.isIntersecting) { loadImages(e.target); seen.unobserve(e.target); }
   }, { rootMargin: "600px" });
   book.querySelectorAll(".page").forEach((el) => seen.observe(el));
+  $("contents").disabled = false;
   $("position").textContent = `${pages.length} pages`;
 }
 
@@ -107,6 +109,15 @@ function goToChapter(chapter) {
     $("book").querySelector(`[data-chapter-start="${chapter}"]`)?.scrollIntoView();
   } else if (!turning) {
     spread = Math.floor(pages.findIndex((p) => p.chapter === chapter) / 2);
+    renderSpread();
+  }
+}
+
+function goToContents() {
+  if (phone()) {
+    $("book").querySelector(".page-title")?.scrollIntoView();
+  } else if (!turning) {
+    spread = Math.floor(pages.findIndex((p) => p.cls === "page-title") / 2);
     renderSpread();
   }
 }
@@ -224,6 +235,7 @@ async function main() {
     const link = e.target.closest("[data-chapter]");
     if (link) goToChapter(Number(link.dataset.chapter));
   });
+  $("contents").addEventListener("click", goToContents);
   $("next").addEventListener("click", () => turn(1));
   $("prev").addEventListener("click", () => turn(-1));
   addEventListener("keydown", (e) => {

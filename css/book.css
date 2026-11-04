@@ -52,12 +52,13 @@ a { color: inherit; }
 /* Reader */
 .reader { min-height: 100vh; display: flex; flex-direction: column; }
 .toolbar { display: flex; align-items: center; gap: 16px; padding: 12px 20px; flex-wrap: wrap; font: 500 15px/1.2 var(--label); letter-spacing: .08em; }
-#close { color: #cdb78b; text-transform: uppercase; letter-spacing: .14em; padding: 4px 0; }
+#close, #contents { color: #cdb78b; text-transform: uppercase; letter-spacing: .14em; padding: 4px 0; }
 .chips { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
 .chip { border: 1px solid #6d6355; color: var(--paper); border-radius: 2px; padding: 4px 9px; }
 button.chip:hover::after { content: " \00d7"; }
 .chip-ignored { border-style: dashed; color: #a79c8a; }
 .position { color: #a79c8a; }
+#contents:disabled { visibility: hidden; }
 
 .stage { --page-h: min(calc(100vh - 92px), calc((100vw - 150px) * .68)); position: relative; flex: 1; display: grid; place-items: center; padding: 0 64px 20px; perspective: 2600px; }
 .book { position: relative; width: calc(var(--page-h) / .68); height: var(--page-h); display: grid; grid-template-columns: 1fr 1fr; filter: drop-shadow(0 24px 34px rgba(0,0,0,.55)); transform-style: preserve-3d; }
@@ -174,6 +175,8 @@ dd { margin: 0; line-height: 1.25; font-family: var(--label); letter-spacing: .0
   .turn { display: none; }
   .toolbar { padding: 10px 16px; }
   .position { display: none; }
+  /* The toolbar scrolls away on a phone, so this one stays in reach. */
+  #contents { position: fixed; right: 12px; bottom: 12px; z-index: 5; padding: 8px 12px; background: var(--wall-2); border: 1px solid #cdb78b; }
   .book .page { container-type: inline-size; margin-bottom: 10px; }
   .page::after { display: none; }
   .page-photo img, .page-cover img, .page-wide .wide-window img, .compact-photo img { position: static; display: block; width: 100%; height: auto; }
