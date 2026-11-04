@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Car Explorer</title>
+<meta name="description" content="Build your own automotive coffee table book. Type a phrase, get a book.">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="css/book.css">
+</head>
+<body>
+<main id="library" class="library">
+  <header class="masthead">
+    <p class="kicker">A library you write yourself</p>
+    <h1>What book shall we pull down?</h1>
+    <form id="search" autocomplete="off" role="search">
+      <label class="visually-hidden" for="q">Type a subject</label>
+      <input id="q" name="q" type="text" placeholder="Italians, Porsche, 90s American muscle" autofocus>
+      <button type="submit">Open</button>
+    </form>
+    <p id="message" class="message" role="status"></p>
+  </header>
+  <section aria-label="Books on the shelf">
+    <div id="shelf" class="shelf"></div>
+    <div class="plank"></div>
+  </section>
+</main>
+
+<section id="reader" class="reader" hidden>
+  <nav class="toolbar">
+    <button id="close" type="button">Back to the shelf</button>
+    <div id="chips" class="chips" aria-label="How your phrase was read"></div>
+    <span id="position" class="position" aria-live="polite"></span>
+  </nav>
+  <div id="stage" class="stage">
+    <div id="book" class="book"></div>
+    <button id="prev" class="turn turn-prev" type="button" aria-label="Previous pages"></button>
+    <button id="next" class="turn turn-next" type="button" aria-label="Next pages"></button>
+  </div>
+</section>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
