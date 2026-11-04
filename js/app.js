@@ -23,6 +23,7 @@ function pageEl(page) {
   const el = document.createElement("article");
   el.className = `page ${page?.cls ?? "page-endpaper"}`;
   el.innerHTML = page?.html ?? "";
+  if (page?.chapter !== undefined) el.dataset.chapterStart = page.chapter;
   return el;
 }
 
@@ -99,6 +100,15 @@ function turn(dir) {
     turning = false;
     renderSpread();
   }, { once: true });
+}
+
+function goToChapter(chapter) {
+  if (phone()) {
+    $("book").querySelector(`[data-chapter-start="${chapter}"]`)?.scrollIntoView();
+  } else if (!turning) {
+    spread = Math.floor(pages.findIndex((p) => p.chapter === chapter) / 2);
+    renderSpread();
+  }
 }
 
 function layout() {
@@ -210,6 +220,10 @@ async function main() {
     if (phrase) openBook(phrase);
   });
   $("close").addEventListener("click", () => history.pushState(null, "", location.pathname) || closeReader());
+  $("book").addEventListener("click", (e) => {
+    const link = e.target.closest("[data-chapter]");
+    if (link) goToChapter(Number(link.dataset.chapter));
+  });
   $("next").addEventListener("click", () => turn(1));
   $("prev").addEventListener("click", () => turn(-1));
   addEventListener("keydown", (e) => {

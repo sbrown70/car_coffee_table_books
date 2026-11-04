@@ -144,14 +144,14 @@ function chapterSpread(ch, index) {
   // Only a second photo no spread will show, since an icon's gets its own spread. Otherwise the page stays cloth.
   const shown = ch.cars.find((c) => c.photos[1] && c.sig !== 1);
   return [
-    { cls: "page-chapter", html: `<p class="chapter-no">Chapter ${index + 1}</p><h2 class="chapter-title">${esc(ch.title)}</h2>${ch.blurb ? `<p class="chapter-blurb">${esc(ch.blurb)}</p><p class="source"><a href="${esc(ch.source)}" target="_blank" rel="noopener">From Wikipedia</a></p>` : ""}<ol class="chapter-list${ch.cars.length > 7 ? " chapter-list-long" : ""}">${list}</ol>` },
+    { cls: "page-chapter", chapter: index, html: `<p class="chapter-no">Chapter ${index + 1}</p><h2 class="chapter-title">${esc(ch.title)}</h2>${ch.blurb ? `<p class="chapter-blurb">${esc(ch.blurb)}</p><p class="source"><a href="${esc(ch.source)}" target="_blank" rel="noopener">From Wikipedia</a></p>` : ""}<ol class="chapter-list${ch.cars.length > 7 ? " chapter-list-long" : ""}">${list}</ol>` },
     shown ? mattedPage(shown, shown.photos[1]) : { cls: "page-endpaper", html: "" },
   ];
 }
 
 export function buildPages(title, chapters, introText, count) {
   const heroCar = chapters.flatMap((c) => c.cars).find((c) => c.sig === 1 && c.photos[0]) ?? chapters.flatMap((c) => c.cars).find((c) => c.photos[0]);
-  const contents = chapters.map((c, i) => `<li><span>${i + 1}</span><span>${esc(c.title)}</span><span>${c.cars.length}</span></li>`).join("");
+  const contents = chapters.map((c, i) => `<li><button type="button" class="contents-link" data-chapter="${i}"><span>${i + 1}</span><span>${esc(c.title)}</span><span>${c.cars.length}</span></button></li>`).join("");
   const pages = [
     { cls: "page-endpaper", html: "" },
     { cls: "page-cover", html: `${heroCar ? `<img alt="" ${imgAttrs(heroCar.photos[0], "(max-width: 900px) 100vw, 50vw")}><p class="credit cover-credit">${credit(heroCar.photos[0])}</p>` : ""}<div class="jacket"><p>Car Explorer Library</p><h1>${esc(title)}</h1><p>${count} ${count === 1 ? "car" : "cars"}</p></div>` },
