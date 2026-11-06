@@ -57,6 +57,9 @@ function nuggets(c, limit = 2) {
 }
 
 function sourceLine(c) {
+  const link = (label) => `<a href="${esc(c.source)}" target="_blank" rel="noopener">${label}</a>`;
+  if (c.auto && !c.blurb) return `<p class="source">No checked text yet; see the ${link("Wikipedia article")}. Dates, tags and photo not yet checked by hand.</p>`;
+  if (c.auto && c.adapted) return `<p class="source">${link("Text adapted from Wikipedia")} and checked against it. Dates, tags and photo not yet checked by hand.</p>`;
   if (c.auto) return `<p class="source"><a href="${esc(c.source)}" target="_blank" rel="noopener">Quoted from Wikipedia</a>. Dates, tags and photo not yet checked by hand.</p>`;
   return `<p class="source"><a href="${esc(c.source)}" target="_blank" rel="noopener">Text adapted from Wikipedia</a>. Single source, not yet corroborated.</p>`;
 }
