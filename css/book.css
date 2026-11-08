@@ -41,6 +41,8 @@ a { color: inherit; }
 #q::placeholder { color: #8d8373; font-style: italic; }
 #search button { font: 600 16px/1 var(--label); letter-spacing: .16em; text-transform: uppercase; color: #cdb78b; padding: 0 0 0 18px; }
 .message { min-height: 24px; color: #e8c37a; font-style: italic; }
+.wiki-credit { margin: 4px 0 0; font: 400 14px/1.5 var(--label); color: #8d8373; }
+.wiki-credit a { color: #cdb78b; }
 
 .shelf { display: flex; align-items: flex-end; gap: 3px; overflow-x: auto; padding: 24px 4px 0; scrollbar-width: thin; }
 .spine { position: relative; flex: 0 0 auto; width: 58px; background: linear-gradient(90deg, rgba(0,0,0,.28), rgba(255,255,255,.07) 22%, rgba(0,0,0,.05) 70%, rgba(0,0,0,.32)), var(--cloth); color: var(--cloth-ink); border-radius: 3px 3px 0 0; transition: transform .22s cubic-bezier(.2,.8,.3,1); box-shadow: 0 0 1px rgba(0,0,0,.6); }
